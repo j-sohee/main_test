@@ -197,7 +197,7 @@ fieldset {
             color: #111;
             opacity: 0;
             margin-bottom: 20px;
-            transform: translateY(50px);
+            transform: translateX(50px);
             transition: 0.8s 0.2s; }
           #visual .inner #slider ul li .mainTxt > p {
             position: relative;
