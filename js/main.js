@@ -30,9 +30,28 @@ btnCall.onclick = function(e){
 const $slider = $("#visual").find("#slider");
 const $next = $("#visual").find(".next");
 const $prev = $("#visual").find(".prev");
+const $pic1 = $("#visual").find(".right>.pic")
+const $pic2 = $("#visual").find(".mainVisual>.pic");
+const $rightTxt = $slider.find(".right")
+const $miniTxt2 = $("#visual").find(".right>p")
 let speed = 500;
 
+
 $slider.children("ul").find("li").last().prependTo($slider.children("ul"));
+
+//main motion
+$pic1.animate({ height:"160px", marginTop:0},speed, function(){
+    $pic2.animate({ height:"100%", marginTop:0},speed, function(){
+        $rightTxt.addClass("on");
+        $slider.find(".mainTxt").addClass("on");
+    })
+})
+
+$pic1.animate({ height:"160px", marginTop:0},speed, function(){
+    $pic2.animate({ height:"100%", marginTop:0},speed*2, function(){
+        $rightTxt.addClass("on");
+    })
+})
 
 $next.on("click", function(e){
     e.preventDefault();

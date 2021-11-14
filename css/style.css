@@ -180,13 +180,25 @@ fieldset {
               margin-right: 2%; }
             #visual .inner #slider ul li article:last-child {
               width: 43%; }
+          #visual .inner #slider ul li .mainTxt.on h1 {
+            opacity: 1;
+            transform: translateY(0px); }
+          #visual .inner #slider ul li .mainTxt.on h2 {
+            opacity: 1;
+            transform: translateY(0px); }
           #visual .inner #slider ul li .mainTxt h1 {
             font: 90px/1 "Roboto";
-            color: #111; }
+            color: #111;
+            opacity: 0;
+            transform: translateY(50px);
+            transition: 0.8s; }
           #visual .inner #slider ul li .mainTxt h2 {
             font: 90px/1 "Roboto";
             color: #111;
-            margin-bottom: 20px; }
+            opacity: 0;
+            margin-bottom: 20px;
+            transform: translateY(50px);
+            transition: 0.8s 0.2s; }
           #visual .inner #slider ul li .mainTxt > p {
             position: relative;
             font: 24px/1 "Roboto";
@@ -228,11 +240,13 @@ fieldset {
               float: left;
               margin-top: 40px;
               border-left: 1px solid #ddd;
-              padding: 0 20px; }
+              padding: 0 20px;
+              transition: 0.5; }
               #visual .inner #slider ul li .mainTxt .wrap .right .pic {
                 width: 100%;
-                height: 160px;
-                margin-bottom: 20px; }
+                height: 0px;
+                margin-bottom: 20px;
+                margin-top: 50px; }
                 #visual .inner #slider ul li .mainTxt .wrap .right .pic img {
                   width: 100%;
                   height: 100%;
@@ -240,16 +254,29 @@ fieldset {
               #visual .inner #slider ul li .mainTxt .wrap .right h4 {
                 font: 700 16px/1 "Noto Sans", "Noto Sans KR";
                 color: #333;
-                margin-bottom: 10px; }
+                margin-bottom: 10px;
+                opacity: 0;
+                transform: translateX(80px);
+                transition: 1s; }
               #visual .inner #slider ul li .mainTxt .wrap .right p {
                 font: 14px/1.5 "Noto Sans", "Noto Sans KR";
-                color: #666; }
+                color: #666;
+                opacity: 0;
+                transform: translateX(80px);
+                transition: 1s; }
+              #visual .inner #slider ul li .mainTxt .wrap .right.on h4 {
+                opacity: 1;
+                transform: translateX(0px); }
+              #visual .inner #slider ul li .mainTxt .wrap .right.on p {
+                opacity: 1;
+                transform: translateX(0px); }
           #visual .inner #slider ul li .mainVisual {
             width: 100%;
             height: 100%; }
             #visual .inner #slider ul li .mainVisual .pic {
               width: 100%;
-              height: 100%; }
+              height: 0%;
+              margin-top: 100px; }
               #visual .inner #slider ul li .mainVisual .pic img {
                 width: 100%;
                 height: 100%;
