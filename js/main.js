@@ -25,53 +25,37 @@ btnCall.onclick = function(e){
     btnCall.classList.toggle("on");
     menuMo.classList.toggle("on");
 }
-//main scroll
-const $boxs = $(".myScroll");
-const $btns = $("#navi li");
-let posArr = [];
-let len = $btns.length;
-let baseLine = -200;
 
-for(let i=0; i<len; i++){
-    posArr.push($boxs.eq(i).offset().top);
+//main slider
+const $slider = $("#visual").find("#slider");
+const $next = $("#visual").find(".next");
+const $prev = $("#visual").find(".prev");
+let speed = 500;
+
+$slider.children("ul").find("li").last().prependTo($slider.children("ul"));
+
+$next.on("click", function(e){
+    e.preventDefault();
+    next($slider);
+    
+});
+
+$prev.on("click", function(e){
+    e.preventDefault();
+    prev($slider);
+});
+
+function next(el){
+    el.children("ul").animate({marginLeft : "-200%"},speed, function(){
+        $(this).css({marginLeft : "-100%"});
+        $(this).children("li").first().appendTo(this);
+    });
 }
 
-$(window).on("scroll", function(){
-    let scroll = $(this).scrollTop();
-    for(let i=0; i<len; i++){
-        if(scroll >= posArr[i] +baseLine){
-            $btns.children("a").removeClass("on");
-            $btns.eq(i).children("a").addClass("on");
-
-            $boxs.removeClass("on");
-            $boxs.eq(i).addClass("on");
-        }
-    }
-});
-
-$("#navi li a").on("click", function(e){
-    e.preventDefault();
-    let target = $(this).attr("href");
-    let targetPos = $(target).offset().top;
-
-    $("html,body").animate({
-        scrollTop : targetPos
-    },1000);
-});
-
-//visual swiper
-var swiper = new Swiper(".mySwiper", {
-    pagination: {
-        el: ".swiper-pagination",
-        type: "progressbar",
-    },
-    navigation: {
-        nextEl: ".swiper-button-next",
-        prevEl: ".swiper-button-prev",
-    },
-});
-
-
-
-
+function prev(el){
+    el.children("ul").animate({marginLeft:0}, speed, function(){
+        $(this).css({marginLeft:"-100%"});
+        $(this).children("li").last().prependTo(this);
+    });
+}
  
