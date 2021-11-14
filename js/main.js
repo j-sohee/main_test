@@ -32,37 +32,41 @@ const $next = $("#visual").find(".next");
 const $prev = $("#visual").find(".prev");
 const $pic1 = $("#visual").find(".right>.pic")
 const $pic2 = $("#visual").find(".mainVisual>.pic");
-const $rightTxt = $slider.find(".right")
-const $miniTxt2 = $("#visual").find(".right>p")
+const $miniTxt = $slider.find(".wrap");
+const $mainTit = $slider.find(".mainTit");
+const $line = $slider.find(".right>.line");
 let speed = 500;
 
 
 $slider.children("ul").find("li").last().prependTo($slider.children("ul"));
 
 //main motion
-$pic1.animate({ height:"160px", marginTop:0},speed, function(){
-    $pic2.animate({ height:"100%", marginTop:0},speed, function(){
-        $rightTxt.addClass("on");
-        $slider.find(".mainTxt").addClass("on");
-    })
-})
+motion();
 
-$pic1.animate({ height:"160px", marginTop:0},speed, function(){
-    $pic2.animate({ height:"100%", marginTop:0},speed*2, function(){
-        $rightTxt.addClass("on");
-    })
-})
 
 $next.on("click", function(e){
     e.preventDefault();
     next($slider);
-    
+    motion();
 });
 
 $prev.on("click", function(e){
     e.preventDefault();
     prev($slider);
 });
+
+function motion(){
+    $line.animate({ marginTop:0, height:"378px" }, speed, function(){
+        $pic1.animate({ height:"160px", marginTop:0},speed, function(){
+            $pic2.animate({ height:"100%", marginTop:0},speed, function(){
+                $miniTxt.addClass("on");
+                $mainTit.addClass("on");
+                $prev.addClass("on");
+                $next.addClass("on");
+            });
+        });
+    });
+}
 
 function next(el){
     el.children("ul").animate({marginLeft : "-200%"},speed, function(){
