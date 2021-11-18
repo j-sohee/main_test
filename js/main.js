@@ -1,58 +1,92 @@
+//main slider
 const $visual = $(".visual");
 const $mainTit = $visual.find("#mainTit")
-const $mainTit_len = $mainTit.length;
-const $currentIndex = 0;
-const $mainVisual = $(".visual2 .mainVisual")
+const $mainVisual = $(".visual2 .mainVisual");
+const $mainVisual_top = $(".visual2 .top");
+const $mainVisual_bottom = $(".visual2 .bottom");
+const $smallVisual = $visual.find(".smallVisual");
 const $next = $(".next");
 const $prev = $(".prev");
-let tit = 0;
+let num = 0;
+let speed = 500;
 
-$mainVisual.find("li").last().prependTo($mainVisual);
+
+
 
 $next.on("click", function(e){
     e.preventDefault();
 
-    $mainVisual.animate({marginLeft : "-200%"}, 500,function(){
-        $mainVisual.css({marginLeft:"-100%"});
-        $mainVisual.find("li").first().appendTo(this);
-    });
+    
+    //next_slider($mainVisual);
 
     $mainTit.find("li.on").addClass("upper");
+    $smallVisual.find("li.on").addClass("upper");
+
+    $mainVisual_bottom.find("li.on").addClass("upper");
+    setTimeout(function(){
+        $mainVisual_top.find("li.on").addClass("upper");
+    },speed)
+    if(num<2){
+        setTimeout(function(){
+            $mainVisual_top.find("li").eq(num).addClass("on");
+        },speed*2.5)
+        setTimeout(function(){
+            $mainVisual_bottom.find("li").eq(num).addClass("on");
+        },speed*3)
+        num++;
+        console.log(num);
+    }else{
+        num=0;
+    }
+    
     
     setTimeout(function(){
         $mainTit.find("li").removeClass("on");
         $mainTit.find("li").removeClass("upper");
-        if(tit<2){
-            $mainTit.find("li").eq(tit + 1).addClass("on");
-            tit++;
+        $smallVisual.find("li").removeClass("on");
+        $smallVisual.find("li").removeClass("upper");
+        if(num<2){
+            $mainTit.find("li").eq(num + 1).addClass("on");
+            $smallVisual.find("li").eq(num + 1).addClass("on");
+            num++;
+
         }else{
-            tit = 0;
-            $mainTit.find("li").eq(tit).addClass("on");
+            num = 0;
+            $mainTit.find("li").eq(num).addClass("on");
+            $smallVisual.find("li").eq(num).addClass("on");
         }
-    },500)
+    },speed)
 });
 
 $prev.on("click", function(e){
     e.preventDefault();
 
-    $mainVisual.animate({marginLeft : "0%"}, 500,function(){
-        $mainVisual.css({marginLeft:"-100%"});
-        $mainVisual.find("li").last().prependTo(this);
-    });
+    prev_slider($mainVisual);
 
     $mainTit.find("li.on").addClass("upper");
     
     setTimeout(function(){
         $mainTit.find("li").removeClass("on");
         $mainTit.find("li").removeClass("upper");
-        if(tit>0){
-            $mainTit.find("li").eq(tit-1).addClass("on");
-            tit--;
-            
+        if(num>0){
+            $mainTit.find("li").eq(num-1).addClass("on");
+            num--;
         }else{
-            tit = 2;
-            $mainTit.find("li").eq(tit).addClass("on");
+            num = 2;
+            $mainTit.find("li").eq(num).addClass("on");
         }
-        console.log(tit);
     },500)
 });
+
+function prev_slider(el){
+    el.animate({marginLeft : "0%"}, speed,function(){
+        el.css({marginLeft:"-100%"});
+        el.find("li").last().prependTo(this);
+    });
+}
+function next_slider(el){
+    el.animate({marginLeft : "-200%"},speed,function(){
+        el.css({marginLeft:"-100%"});
+        el.find("li").first().appendTo(this);
+    });
+}
