@@ -7,51 +7,65 @@ const $mainVisual_bottom = $(".visual2 .bottom");
 const $smallVisual = $visual.find(".smallVisual");
 const $next = $(".next");
 const $prev = $(".prev");
+const len = $mainVisual.length;
 let num = 0;
+console.log(num);
 let speed = 500;
-
-
 
 
 $next.on("click", function(e){
     e.preventDefault();
+    num++;
+    console.log(num);
 
-    
-    //next_slider($mainVisual);
-
-    $mainTit.find("li.on").addClass("upper");
-    $smallVisual.find("li.on").addClass("upper");
-
+    //mainvisual
+    //첫번째 사진 upper로 사라지게 만듦
     $mainVisual_bottom.find("li.on").addClass("upper");
     setTimeout(function(){
         $mainVisual_top.find("li.on").addClass("upper");
     },speed)
-    if(num<2){
+
+    if(num<len){
         setTimeout(function(){
             $mainVisual_top.find("li").eq(num).addClass("on");
-        },speed*2.5)
+        },speed*2)
         setTimeout(function(){
             $mainVisual_bottom.find("li").eq(num).addClass("on");
-        },speed*3)
-        num++;
-        console.log(num);
+            $mainVisual_bottom.find("li").eq(num-1).removeClass("on");
+            $mainVisual_top.find("li").eq(num-1).removeClass("on");
+        },speed*2.5)
     }else{
-        num=0;
+        num=2;
+        setTimeout(function(){
+            $mainVisual_top.find("li").eq(2).addClass("on");
+            $mainVisual_bottom.find("li").eq(num-1).removeClass("on");
+            $mainVisual_top.find("li").eq(num-1).removeClass("on");
+        },speed*2.5)
+        setTimeout(function(){
+            $mainVisual_bottom.find("li").eq(2).addClass("on");
+            $mainVisual
+        },speed*3)
     }
+        
     
     
+    
+    $mainTit.find("li.on").addClass("upper");
+    $smallVisual.find("li.on").addClass("upper");
+
+
     setTimeout(function(){
         $mainTit.find("li").removeClass("on");
         $mainTit.find("li").removeClass("upper");
         $smallVisual.find("li").removeClass("on");
         $smallVisual.find("li").removeClass("upper");
-        if(num<2){
-            $mainTit.find("li").eq(num + 1).addClass("on");
-            $smallVisual.find("li").eq(num + 1).addClass("on");
-            num++;
 
+        if(num<len){
+            $mainTit.find("li").eq(num).addClass("on");
+            $smallVisual.find("li").eq(num).addClass("on");
+            console.log(num);
         }else{
-            num = 0;
+            num = 2;
             $mainTit.find("li").eq(num).addClass("on");
             $smallVisual.find("li").eq(num).addClass("on");
         }
@@ -78,15 +92,3 @@ $prev.on("click", function(e){
     },500)
 });
 
-function prev_slider(el){
-    el.animate({marginLeft : "0%"}, speed,function(){
-        el.css({marginLeft:"-100%"});
-        el.find("li").last().prependTo(this);
-    });
-}
-function next_slider(el){
-    el.animate({marginLeft : "-200%"},speed,function(){
-        el.css({marginLeft:"-100%"});
-        el.find("li").first().appendTo(this);
-    });
-}
