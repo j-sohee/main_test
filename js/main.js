@@ -55,8 +55,8 @@ function nextSlide(nextIndex){
         setTimeout(function(){
             mainVisual_top.find("li.upper").removeClass("upper");
             currentInedx = nextIndex;
-            enableClick = true;
         },speed*3)
+        enableClick = true;
         
     }else{
         currentInedx=0;
@@ -72,8 +72,8 @@ function nextSlide(nextIndex){
 
         setTimeout(function(){
             mainVisual_bottom.find("li").eq(nextIndex).addClass("on");
-            enableClick = true;
         },speed*2.5)
+        enableClick = true;
         
     }
 }
@@ -97,8 +97,8 @@ function prevSlide(prevIndex){
         setTimeout(function(){
             mainVisual_top.find("li.upper").removeClass("upper");
             currentInedx = prevIndex;
-            enableClick = true;
         },speed*3)
+        enableClick = true;
        
         
     }else{
@@ -115,8 +115,8 @@ function prevSlide(prevIndex){
 
         setTimeout(function(){
             mainVisual_bottom.find("li").eq(prevIndex).addClass("on");
-            enableClick = true;
         },speed*2.5)
+        enableClick = true;
     }
 
 }
@@ -134,9 +134,9 @@ function nextVisual(nextIndex){
 
             mainTit.find("li").eq(nextIndex).addClass("on");
             smallVisual.find("li").eq(nextIndex).addClass("on");
-            enableClick = true;
             currentInedx = nextIndex;
         },speed)
+        enableClick = true;
         
     }else{
         currentInedx=0;
@@ -145,8 +145,8 @@ function nextVisual(nextIndex){
         setTimeout(function(){
             mainTit.find("li").eq(nextIndex).addClass("on");
             smallVisual.find("li").eq(nextIndex).addClass("on");
-            enableClick = true;
         },speed)
+        enableClick = true;
     }
     
 }
@@ -167,8 +167,8 @@ function prevVisual(prevIndex){
             smallVisual.find("li").eq(prevIndex).addClass("on");
 
             currentInedx = prevIndex;
-            enableClick = true;
         },speed)
+        enableClick = true;
 
     }else{
         currentInedx=-0;
@@ -177,7 +177,7 @@ function prevVisual(prevIndex){
         setTimeout(function(){
             mainTit.find("li").eq(prevIndex).addClass("on");
             smallVisual.find("li").eq(prevIndex).addClass("on");
-            enableClick = true;
         },speed)
+        enableClick = true;
     }
 }
