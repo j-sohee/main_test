@@ -1,94 +1,183 @@
-//main slider
-const $visual = $(".visual");
-const $mainTit = $visual.find("#mainTit")
-const $mainVisual = $(".visual2 .mainVisual");
-const $mainVisual_top = $(".visual2 .top");
-const $mainVisual_bottom = $(".visual2 .bottom");
-const $smallVisual = $visual.find(".smallVisual");
-const $next = $(".next");
-const $prev = $(".prev");
-const len = $mainVisual.length;
-let num = 0;
-console.log(num);
+const visual = $(".visual");
+const mainTit = visual.find("#mainTit")
+const mainVisual_top = $(".visual2 .top");
+const mainVisual_bottom = $(".visual2 .bottom");
+const smallVisual = visual.find(".smallVisual");
+const next = $(".next");
+const prev = $(".prev");
+let currentInedx = 0;
+let sliderCount = mainVisual_top.find("li").length;
 let speed = 500;
+let enableClick = true;
 
-
-$next.on("click", function(e){
+next.on("click", function(e){
     e.preventDefault();
-    num++;
-    console.log(num);
 
-    //mainvisual
-    //첫번째 사진 upper로 사라지게 만듦
-    $mainVisual_bottom.find("li.on").addClass("upper");
-    setTimeout(function(){
-        $mainVisual_top.find("li.on").addClass("upper");
-    },speed)
+    if(enableClick){
+        enableClick = false;
 
-    if(num<len){
-        setTimeout(function(){
-            $mainVisual_top.find("li").eq(num).addClass("on");
-        },speed*2)
-        setTimeout(function(){
-            $mainVisual_bottom.find("li").eq(num).addClass("on");
-            $mainVisual_bottom.find("li").eq(num-1).removeClass("on");
-            $mainVisual_top.find("li").eq(num-1).removeClass("on");
-        },speed*2.5)
-    }else{
-        num=2;
-        setTimeout(function(){
-            $mainVisual_top.find("li").eq(2).addClass("on");
-            $mainVisual_bottom.find("li").eq(num-1).removeClass("on");
-            $mainVisual_top.find("li").eq(num-1).removeClass("on");
-        },speed*2.5)
-        setTimeout(function(){
-            $mainVisual_bottom.find("li").eq(2).addClass("on");
-            $mainVisual
-        },speed*3)
+        let nextIndex = (currentInedx +1) % sliderCount;
+        nextSlide(nextIndex);
+        nextVisual(nextIndex);
     }
-        
-    
-    
-    
-    $mainTit.find("li.on").addClass("upper");
-    $smallVisual.find("li.on").addClass("upper");
-
-
-    setTimeout(function(){
-        $mainTit.find("li").removeClass("on");
-        $mainTit.find("li").removeClass("upper");
-        $smallVisual.find("li").removeClass("on");
-        $smallVisual.find("li").removeClass("upper");
-
-        if(num<len){
-            $mainTit.find("li").eq(num).addClass("on");
-            $smallVisual.find("li").eq(num).addClass("on");
-            console.log(num);
-        }else{
-            num = 2;
-            $mainTit.find("li").eq(num).addClass("on");
-            $smallVisual.find("li").eq(num).addClass("on");
-        }
-    },speed)
 });
 
-$prev.on("click", function(e){
+
+prev.on("click", function(e){
     e.preventDefault();
-
-    prev_slider($mainVisual);
-
-    $mainTit.find("li.on").addClass("upper");
     
-    setTimeout(function(){
-        $mainTit.find("li").removeClass("on");
-        $mainTit.find("li").removeClass("upper");
-        if(num>0){
-            $mainTit.find("li").eq(num-1).addClass("on");
-            num--;
-        }else{
-            num = 2;
-            $mainTit.find("li").eq(num).addClass("on");
-        }
-    },500)
+    if(enableClick){
+        enableClick = false;
+
+        let prevIndex = (currentInedx -1) % sliderCount;
+        prevSlide(prevIndex);   
+        prevVisual(prevIndex);
+    }
 });
 
+function nextSlide(nextIndex){
+    if(currentInedx < nextIndex){
+        mainVisual_bottom.find("li.on").removeClass("on").addClass("upper");
+        setTimeout(function(){
+            mainVisual_top.find("li.on").removeClass("on").addClass("upper");
+        },speed)
+
+        //두번째slide(핑크) top나오고 첫번째bottom upper사라짐
+        setTimeout(function(){
+            mainVisual_top.find("li").eq(nextIndex).addClass("on");
+            mainVisual_bottom.find("li.upper").removeClass("upper");
+        },speed*2)
+
+        ///두번째slide(핑크) bottom나오고 첫번째top upper사라짐
+        setTimeout(function(){
+            mainVisual_bottom.find("li").eq(nextIndex).addClass("on");
+        },speed*2.5)
+        setTimeout(function(){
+            mainVisual_top.find("li.upper").removeClass("upper");
+            currentInedx = nextIndex;
+            enableClick = true;
+        },speed*3)
+        
+    }else{
+        currentInedx=0;
+        mainVisual_bottom.find("li.on").removeClass("on").addClass("upper");
+
+        setTimeout(function(){
+            mainVisual_top.find("li.on").removeClass("on").addClass("upper");
+        },speed)
+
+        setTimeout(function(){
+            mainVisual_top.find("li").eq(nextIndex).addClass("on");
+        },speed*2)
+
+        setTimeout(function(){
+            mainVisual_bottom.find("li").eq(nextIndex).addClass("on");
+            enableClick = true;
+        },speed*2.5)
+        
+    }
+}
+
+function prevSlide(prevIndex){
+    if(currentInedx > prevIndex){
+        mainVisual_bottom.find("li.on").removeClass("on").addClass("upper");
+        setTimeout(function(){
+            mainVisual_top.find("li.on").removeClass("on").addClass("upper");
+        },speed)
+        //두번째slide(핑크) top나오고 첫번째bottom upper사라짐
+        setTimeout(function(){
+            mainVisual_top.find("li").eq(prevIndex).addClass("on");
+            mainVisual_bottom.find("li.upper").removeClass("upper");
+        },speed*2)
+
+        ///두번째slide(핑크) bottom나오고 첫번째top upper사라짐
+        setTimeout(function(){
+            mainVisual_bottom.find("li").eq(prevIndex).addClass("on");
+        },speed*2.5)
+        setTimeout(function(){
+            mainVisual_top.find("li.upper").removeClass("upper");
+            currentInedx = prevIndex;
+            enableClick = true;
+        },speed*3)
+       
+        
+    }else{
+        currentInedx=-0;
+        mainVisual_bottom.find("li.on").removeClass("on").addClass("upper");
+
+        setTimeout(function(){
+            mainVisual_top.find("li.on").removeClass("on").addClass("upper");
+        },speed)
+
+        setTimeout(function(){
+            mainVisual_top.find("li").eq(prevIndex).addClass("on");
+        },speed*2)
+
+        setTimeout(function(){
+            mainVisual_bottom.find("li").eq(prevIndex).addClass("on");
+            enableClick = true;
+        },speed*2.5)
+    }
+
+}
+
+function nextVisual(nextIndex){
+    if(currentInedx < nextIndex){
+        mainTit.find("li.on").addClass("upper");
+        smallVisual.find("li.on").addClass("upper");
+
+        setTimeout(function(){
+            mainTit.find("li").removeClass("upper");
+            mainTit.find("li").removeClass("on");
+            smallVisual.find("li").removeClass("upper");
+            smallVisual.find("li").removeClass("on");
+
+            mainTit.find("li").eq(nextIndex).addClass("on");
+            smallVisual.find("li").eq(nextIndex).addClass("on");
+            enableClick = true;
+            currentInedx = nextIndex;
+        },speed)
+        
+    }else{
+        currentInedx=0;
+        mainTit.find("li.on").addClass("upper");
+        smallVisual.find("li.on").addClass("upper");
+        setTimeout(function(){
+            mainTit.find("li").eq(nextIndex).addClass("on");
+            smallVisual.find("li").eq(nextIndex).addClass("on");
+            enableClick = true;
+        },speed)
+    }
+    
+}
+
+
+function prevVisual(prevIndex){
+    if(currentInedx > prevIndex){
+        mainTit.find("li.on").addClass("upper");
+        smallVisual.find("li.on").addClass("upper");
+
+        setTimeout(function(){
+            mainTit.find("li").removeClass("upper");
+            mainTit.find("li").removeClass("on");
+            smallVisual.find("li").removeClass("upper");
+            smallVisual.find("li").removeClass("on");
+
+            mainTit.find("li").eq(prevIndex).addClass("on");
+            smallVisual.find("li").eq(prevIndex).addClass("on");
+
+            currentInedx = prevIndex;
+            enableClick = true;
+        },speed)
+
+    }else{
+        currentInedx=-0;
+        mainTit.find("li.on").addClass("upper");
+        smallVisual.find("li.on").addClass("upper");
+        setTimeout(function(){
+            mainTit.find("li").eq(prevIndex).addClass("on");
+            smallVisual.find("li").eq(prevIndex).addClass("on");
+            enableClick = true;
+        },speed)
+    }
+}
