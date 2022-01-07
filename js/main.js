@@ -111,7 +111,6 @@ function prevSlide(prevIndex){
         },speed*2.5)
         setTimeout(function(){
             mainVisual_top.find("li.upper").removeClass("upper");
-            enableClick = true;
         },speed*3)
         
     }else{
@@ -150,7 +149,7 @@ function nextVisual(nextIndex){
             currentInedx = nextIndex;
             console.log(currentInedx);
         },speed)
-               
+        enableClick = true;
     }else{
         currentInedx=0;
         mainTit.find("li.on").addClass("upper");
@@ -185,6 +184,7 @@ function prevVisual(prevIndex){
 
             currentInedx = prevIndex;
         },speed)
+        enableClick = true;
 
     }else{
         currentInedx=0;
