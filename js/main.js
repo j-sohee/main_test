@@ -42,6 +42,7 @@ prev.on("click", function(e){
 function nextSlide(nextIndex){
     if(currentInedx < nextIndex){
         mainVisual_bottom.find("li.on").removeClass("on").addClass("upper");
+
         setTimeout(function(){
             mainVisual_top.find("li.on").removeClass("on").addClass("upper");
         },speed)
@@ -55,12 +56,12 @@ function nextSlide(nextIndex){
         ///두번째slide(핑크) bottom나오고 첫번째top upper사라짐
         setTimeout(function(){
             mainVisual_bottom.find("li").eq(nextIndex).addClass("on");
-            
         },speed*2.5)
+
         setTimeout(function(){
-            mainVisual_top.eq(nextIndex-1).find("li.upper").removeClass("upper");
+            mainVisual_top.find("li.upper").removeClass("upper");
+            mainVisual_bottom.find("li.upper").removeClass("upper");
             currentInedx = nextIndex;
-            enableClick = true;
         },speed*3)
         
     }else{
@@ -87,6 +88,7 @@ function nextSlide(nextIndex){
             enableClick = true;
         },speed*3)
 
+        
     }
 }
 
@@ -148,9 +150,7 @@ function nextVisual(nextIndex){
             currentInedx = nextIndex;
             console.log(currentInedx);
         },speed)
-        enableClick = true;
-        
-        
+               
     }else{
         currentInedx=0;
         mainTit.find("li.on").addClass("upper");
@@ -185,7 +185,6 @@ function prevVisual(prevIndex){
 
             currentInedx = prevIndex;
         },speed)
-        enableClick = true;
 
     }else{
         currentInedx=0;
